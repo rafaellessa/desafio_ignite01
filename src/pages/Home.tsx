@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import { Header } from "../components/Header";
 import { Task, TasksList } from "../components/TasksList";
 import { TodoInput } from "../components/TodoInput";
@@ -9,12 +9,17 @@ export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   function handleAddTask(newTaskTitle: string) {
-    if(newTaskTitle.trim()){
+
+    const taskExists = tasks.some((item) => item.title === newTaskTitle)
+
+    if(newTaskTitle.trim() && !taskExists){
       setTasks([...tasks, {
         done: false,
         id: new Date().getTime(),
         title: newTaskTitle
       }])
+    }else{
+      return Alert.alert('Task já cadastrada')
     }
   }
   
@@ -43,7 +48,16 @@ export function Home() {
   }
 
   function handleRemoveTask(id: number) {
-    setTasks(old => old.filter((item) => item.id !== id))
+    return Alert.alert("Excluir",
+    "A tarefa selecionada será exluída, tem certeza?",
+    [
+      {
+        text: "Não",        
+        style: "cancel"
+      },
+      { text: "Sim", onPress: () =>  setTasks(old => old.filter((item) => item.id !== id))}
+    ])
+    
   }
 
   return (
