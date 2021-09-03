@@ -48,16 +48,16 @@ export function Home() {
   }
 
   function handleRemoveTask(id: number) {
-    return Alert.alert("Excluir",
-    "A tarefa selecionada será exluída, tem certeza?",
-    [
-      {
-        text: "Não",        
-        style: "cancel"
-      },
-      { text: "Sim", onPress: () =>  setTasks(old => old.filter((item) => item.id !== id))}
-    ])
-    
+    // return Alert.alert("Excluir",
+    // "A tarefa selecionada será exluída, tem certeza?",
+    // [
+    //   {
+    //     text: "Não",        
+    //     style: "cancel"
+    //   },
+    //   { text: "Sim", onPress: () =>  setTasks(old => old.filter((item) => item.id !== id))}
+    // ])
+    setTasks(old => old.filter((item) => item.id !== id))
   }
 
   return (
